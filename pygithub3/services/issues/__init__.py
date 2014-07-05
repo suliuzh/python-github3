@@ -17,8 +17,7 @@ class Issue(Service, MimeTypeMixin):
         self.milestones = Milestones(**config)
         super(Issue, self).__init__(**config)
 
-    def list(self, filter='assigned', state='open', labels='', sort='created',
-            direction='desc', since=None):
+    def list(self, **params):
         """ List your issues
 
         :param str filter: 'assigned', 'created', 'mentioned' or 'subscribed'
@@ -33,14 +32,10 @@ class Issue(Service, MimeTypeMixin):
         .. warning::
             You must be authenticated
         """
-        params = dict(filter=filter, state=state, labels=labels, sort=sort,
-            direction=direction)
         request = self.request_builder('issues.list')
         return self._get_result(request, **params)
 
-    def list_by_repo(self, user=None, repo=None, milestone='*', state='open',
-            assignee='*', mentioned='', labels='', sort='created',
-            direction='desc', since=None):
+    def list_by_repo(self, user=None, repo=None, **params):
         """ List issues for a repo
 
         :param str milestone: Milestone ID, 'none' or '*'
@@ -57,8 +52,6 @@ class Issue(Service, MimeTypeMixin):
         .. note::
             Remember :ref:`config precedence`
         """
-        params = dict(milestone=milestone, state=state, assignee=assignee,
-            mentioned=mentioned, labels=labels, sort=sort, direction=direction)
         request = self.make_request('issues.list_by_repo', user=user,
             repo=repo)
         return self._get_result(request, **params)
