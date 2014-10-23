@@ -8,8 +8,7 @@ class Milestones(Service):
     """ Consume `Milestones API
     <http://developer.github.com/v3/issues/milestones>`_ """
 
-    def list(self, user=None, repo=None, state='open', sort='due_date',
-            direction='desc'):
+    def list(self, user=None, repo=None, **params):
         """ List milestones for a repo
 
         :param str user: Username
@@ -24,8 +23,7 @@ class Milestones(Service):
         """
         request = self.make_request('issues.milestones.list', user=user,
             repo=repo)
-        return self._get_result(request, state=state, sort=sort,
-            direction=direction)
+        return self._get_result(request, **params)
 
     def get(self, number, user=None, repo=None):
         """ Get a single milestone
