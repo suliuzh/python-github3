@@ -7,4 +7,4 @@ __email__ = 'davidmedina9@gmail.com'
 __license__ = 'ISC'
 __copyright__ = 'Copyright 2012 David Medina'
 
-from github import Github
+from .github import Github
